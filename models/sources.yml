@@ -1,0 +1,159 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw ecommerce data from source systems
+    database: ecommerce_db
+    schema: raw
+    meta:
+      owner: data_engineering
+      criticality: high
+      refresh_frequency: daily
+    
+    tables:
+      - name: raw_customers
+        description: |
+          Raw customer data from the source system.
+          Contains customer details like name, email, and signup date.
+          Expected volume: ~1000-5000 rows
+        columns:
+          - name: customer_id
+            description: Unique customer identifier
+            data_type: varchar
+          - name: first_name
+            description: Customer first name
+            data_type: varchar
+          - name: last_name
+            description: Customer last name
+            data_type: varchar
+          - name: email
+            description: Customer email address
+            data_type: varchar
+            meta:
+              pii: true
+          - name: signup_date
+            description: Date customer signed up
+            data_type: varchar
+        
+        # ⭐ FRESHNESS TEST 
+        # freshness:
+        #   warn_after: { count: 24, period: hour }
+        #   error_after: { count: 48, period: hour }
+        # loaded_at_field: loaded_at
+
+      - name: raw_orders
+        description: |
+          Raw order data from the e-commerce platform.
+          Contains order details: ID, customer, date, status, total.
+          Expected volume: ~5000-10000 rows
+        columns:
+          - name: order_id
+            description: Unique order identifier
+            data_type: varchar
+          - name: customer_id
+            description: Reference to customer
+            data_type: varchar
+          - name: order_date
+            description: Date order was placed
+            data_type: varchar
+          - name: status
+            description: Order status (completed, pending, cancelled, returned)
+            data_type: varchar
+          - name: order_total
+            description: Total order amount
+            data_type: varchar
+        
+        # ⭐ FRESHNESS TEST (
+        # freshness:
+        #   warn_after: { count: 12, period: hour }
+        #   error_after: { count: 24, period: hour }
+        # loaded_at_field: loaded_at
+
+      - name: raw_order_items
+        description: |
+          Line items for each order.
+          Contains product details for each order line.
+          Expected volume: 2-3x order count
+        columns:
+          - name: order_item_id
+            description: Unique order item identifier
+            data_type: varchar
+          - name: order_id
+            description: Reference to order
+            data_type: varchar
+          - name: product_id
+            description: Reference to product
+            data_type: varchar
+          - name: quantity
+            description: Quantity ordered
+            data_type: varchar
+          - name: unit_price
+            description: Price per unit
+            data_type: varchar
+          - name: line_total
+            description: Total for this line
+            data_type: varchar
+        
+        # ⭐ FRESHNESS TEST 
+        # freshness:
+        #   warn_after: { count: 12, period: hour }
+        #   error_after: { count: 24, period: hour }
+        # loaded_at_field: loaded_at
+
+      - name: raw_products
+        description: |
+          Product catalog.
+          Master data for products: name, category, price, stock.
+          Expected volume: ~500-2000 rows
+        columns:
+          - name: product_id
+            description: Unique product identifier
+            data_type: varchar
+          - name: product_name
+            description: Product name
+            data_type: varchar
+          - name: category
+            description: Product category
+            data_type: varchar
+          - name: price
+            description: Product price
+            data_type: varchar
+          - name: stock_quantity
+            description: Current stock level
+            data_type: varchar
+          - name: created_date
+            description: Product creation date
+            data_type: varchar
+        
+
+      - name: raw_payments
+        description: |
+          Payment transactions for orders.
+          Contains payment method, amount, status, date.
+          Expected volume: Similar to orders
+        columns:
+          - name: payment_id
+            description: Unique payment identifier
+            data_type: varchar
+          - name: order_id
+            description: Reference to order
+            data_type: varchar
+          - name: payment_method
+            description: Payment method (credit_card, debit_card, paypal, bank_transfer)
+            data_type: varchar
+          - name: amount
+            description: Payment amount
+            data_type: varchar
+          - name: payment_date
+            description: Date payment was processed
+            data_type: varchar
+          - name: status
+            description: Payment status (success, failed, pending, refunded, cancelled, returned)
+            data_type: varchar
+        
+        # FRESHNESS TEST (disabled)
+        # freshness:
+        #   warn_after: { count: 2, period: hour }
+        #   error_after: { count: 6, period: hour }
+        # loaded_at_field: loaded_at
+

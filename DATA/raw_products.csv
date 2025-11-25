@@ -1,0 +1,21 @@
+product_id,product_name,category,price,stock_quantity,created_date
+101,Laptop Pro,Electronics,1299.99,50,2024-01-01
+102,Wireless Mouse,Electronics,29.99,200,2024-01-05
+103,USB-C Cable,Electronics,19.99,,2024-01-10
+104,Monitor 4K,Electronics,499.99,30,2024-01-15
+105,Mechanical Keyboard,Electronics,149.99,100,2024-01-20
+106,Winter Jacket,Clothing,79.99,75,2024-02-01
+107,Running Shoes,Clothing,89.99,120,2024-02-05
+108,Cotton T-Shirt,Clothing,24.99,300,2024-02-10
+109,Blue Jeans,Clothing,,250,2024-02-15
+110,Wool Sweater,Clothing,64.99,80,2024-02-20
+111,Office Chair,Furniture,249.99,25,2024-03-01
+112,Standing Desk,Furniture,399.99,15,2024-03-05
+113,Bookshelf,Furniture,129.99,40,2024-03-10
+114,Desk Lamp,Furniture,49.99,60,2024-03-15
+115,Coffee Table,Furniture,199.99,,2024-03-20
+116,Yoga Mat,Sports,34.99,200,2024-04-01
+117,Dumbbells Set,Sports,89.99,80,2024-04-05
+118,Resistance Bands,Sports,19.99,300,2024-04-10
+119,Bicycle Helmet,Sports,74.99,100,2024-04-15
+120,Sports Backpack,Sports,59.99,150,2024-04-20

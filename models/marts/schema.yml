@@ -1,0 +1,73 @@
+models:
+  - name: fct_orders
+    description: data mart for orders
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: order_key
+        data_type: varchar
+
+      - name: order_id
+        data_type: integer
+
+      - name: total_amount
+        data_type: numeric
+
+      - name: first_name
+        data_type: varchar
+
+      - name: last_name
+        data_type: varchar
+
+      - name: email
+        data_type: varchar
+
+      - name: customer_id
+        data_type: integer
+      
+      - name: payment_diff
+        data_type: numeric
+
+      - name: order_category
+        data_type: varchar
+
+
+  - name: dim_customers
+    description: data mart with plenty of detail about the customer
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: customer_id
+        data_type: integer
+
+      - name: first_name
+        data_type: varchar
+
+      - name: last_name
+        data_type: varchar
+
+      - name: email
+        data_type: varchar
+
+      - name: signup_date
+        data_type: date
+      
+      - name: customer_lifetime_value
+        data_type: numeric
+
+      - name: avg_order_value
+        data_type: numeric
+
+      - name: total_orders
+        data_type: integer
+
+      - name: total_spent
+        data_type: numeric
+
+      - name: last_order_date
+        data_type: date
+
+      - name: first_order_date
+        data_type: date
