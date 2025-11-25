@@ -35,6 +35,8 @@ models:
       - name: signup_date
         data_type: date
         description: Signup date
+      - name: row_num
+        data_type: BIGINT
 
 
   - name: stg_orders
@@ -101,17 +103,17 @@ models:
           - not_null
 
       - name: quantity
-        data_type: varchar
+        data_type: INTEGER
         description: Quantity ordered
         tests:
           - not_null
       - name: unit_price
-        data_type: varchar
+        data_type: DECIMAL
         description: Unit price
         tests:
           - not_null
       - name: line_total
-        data_type: varchar
+        data_type: DECIMAL
         description: Line total
         tests:
           - not_null
@@ -139,17 +141,17 @@ models:
         tests:
           - not_null
       - name: price
-        data_type: varchar
+        data_type: DECIMAL
         description: Product price
         tests:
           - not_null
       - name: stock_quantity
-        data_type: varchar
+        data_type: INTEGER
         description: Stock quantity
         tests:
           - not_null
       - name: created_date
-        data_type: varchar
+        data_type: date
         description: Creation date
         tests:
           - not_null
@@ -181,12 +183,12 @@ models:
         tests:
           - not_null
       - name: amount
-        data_type: varchar
+        data_type: DECIMAL
         description: Payment amount
         tests:
           - not_null
       - name: payment_date
-        data_type: varchar
+        data_type: DATE
         description: Payment date
         tests:
           - not_null

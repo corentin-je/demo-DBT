@@ -1,21 +1,43 @@
 models:
   - name: fct_orders
     description: data mart for orders
+
+    meta:
+      owner: "analytics_team"
+      criticality: "high"  
+      sla:
+        freshness: "24 hours"  
+        uptime: "99.9%"
+      pii: false
+      tags:
+        - "orders"
+        - "financial"
+        - "core_mart"
+      last_updated_by: "you"
+
+
     config:
       contract:
         enforced: true
+
     columns:
       - name: order_key
-        data_type: varchar
+        data_type: VARCHAR
 
       - name: order_id
-        data_type: integer
+        data_type: VARCHAR        
+        meta:
+          data_classification: "identifier"
+          sensitive: false
+        tests:
+          - unique
+          - not_null
 
       - name: total_amount
         data_type: numeric
 
       - name: first_name
-        data_type: varchar
+        data_type: VARCHAR
 
       - name: last_name
         data_type: varchar
@@ -24,7 +46,7 @@ models:
         data_type: varchar
 
       - name: customer_id
-        data_type: integer
+        data_type: VARCHAR
       
       - name: payment_diff
         data_type: numeric
@@ -32,42 +54,94 @@ models:
       - name: order_category
         data_type: varchar
 
+      - name: item_count
+        data_type: BIGINT
+ 
+      - name: payment_count
+        data_type: BIGINT
+      - name: order_date
+        data_type: DATE
+      - name: order_status
+        data_type: VARCHAR 
+      - name: payment_total
+        data_type: numeric 
+
+ 
+
 
   - name: dim_customers
     description: data mart with plenty of detail about the customer
+
+    meta:
+      owner: "analytics_team"
+      criticality: "high"
+      sla:
+        freshness: "daily"
+        uptime: "99.5%"
+      pii: true 
+      tags:
+        - "customers"
+        - "dimension"
+        - "core_mart"
+
+
     config:
       contract:
         enforced: true
+
     columns:
       - name: customer_id
-        data_type: integer
+        data_type: VARCHAR
+        meta:
+          data_classification: "identifier"
+        tests:
+          - unique
+          - not_null
 
       - name: first_name
-        data_type: varchar
+        data_type: VARCHAR
 
       - name: last_name
-        data_type: varchar
+        data_type: VARCHAR
 
       - name: email
-        data_type: varchar
+        data_type: VARCHAR
+        meta:
+          pii: true
+          sensitive: true
+        tests:
+          - not_null
+          - unique
 
       - name: signup_date
         data_type: date
       
       - name: customer_lifetime_value
         data_type: numeric
+        meta:
+          business_term: "Customer Lifetime Value"
+          data_classification: "metric"
+          calculated: true
+        tests:
+          - not_null
 
       - name: avg_order_value
         data_type: numeric
 
       - name: total_orders
-        data_type: integer
+        data_type: BIGINT
 
-      - name: total_spent
-        data_type: numeric
 
       - name: last_order_date
         data_type: date
 
       - name: first_order_date
         data_type: date
+
+      - name: completed_orders
+        data_type: BIGINT
+
+      - name: customer_segment
+        data_type: VARCHAR 
+      - name: is_active_customer
+        data_type: BOOLEAN
