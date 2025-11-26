@@ -1,6 +1,6 @@
 models:
   - name: fct_orders
-    description: data mart for orders
+    description: data mart fact table for orders
 
     meta:
       owner: "analytics_team"
@@ -13,7 +13,7 @@ models:
         - "orders"
         - "financial"
         - "core_mart"
-      last_updated_by: "you"
+      last_updated_by: "me"
 
 
     config:
@@ -70,7 +70,7 @@ models:
 
 
   - name: dim_customers
-    description: data mart with plenty of detail about the customer
+    description: data mart dimension table for customers, with lots of detail 
 
     meta:
       owner: "analytics_team"

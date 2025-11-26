@@ -24,4 +24,10 @@ cleaned as (
     where row_num = 1
 )
 
-select * from cleaned
+select
+    customer_id,
+    first_name,
+    last_name,
+    email,
+    signup_date
+from cleaned

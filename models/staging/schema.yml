@@ -35,8 +35,7 @@ models:
       - name: signup_date
         data_type: date
         description: Signup date
-      - name: row_num
-        data_type: BIGINT
+
 
 
   - name: stg_orders

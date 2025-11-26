@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with customers as (
-    select * from {{ ref('stg_customers') }}
+    select * from {{ ref('int_customers') }}
 ),
 
 customer_metrics as (

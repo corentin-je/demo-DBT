@@ -45,6 +45,7 @@ final as (
         c.first_name,
         c.last_name,
         c.email,
+        c.signup_date,
         oi.item_count,
         oi.items_total,
         COALESCE(p.payment_total, 0) as payment_total,

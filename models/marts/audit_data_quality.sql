@@ -3,7 +3,7 @@
 with data_quality as (
     select 'raw_customers' as table_name, COUNT(*) as row_count, 20 as expected_rows from {{ source('raw', 'raw_customers') }}
     UNION ALL
-    select 'stg_customers', COUNT(*), 18 from {{ ref('stg_customers') }}  -- après dédup
+    select 'stg_customers', COUNT(*), 18 from {{ ref('stg_customers') }}  
     UNION ALL
     select 'fct_orders', COUNT(*), 25 from {{ ref('fct_orders') }}
     UNION ALL
