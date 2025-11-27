@@ -116,7 +116,7 @@ CREATE TABLE raw.raw_customers (
     signup_date    VARCHAR
 );
 
--- Repeat similarly for raw_products, raw_orders, raw_order_items, raw_payments
+
 ```
 
 Then from `psql`:
