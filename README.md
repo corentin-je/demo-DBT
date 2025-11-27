@@ -1,12 +1,10 @@
-# 🛍️ Ecommerce DBT Project
+#  Ecommerce DBT Demo Project
 
-End‑to‑end dbt project for an ecommerce dataset, with intentionally “messy” raw data to practice **data cleaning, modeling, testing, and orchestration with Airflow**.
-
-This project is the one you can safely **walk through live in an interview**: structure is clean, tests are in place, and the pipeline is orchestrated by Airflow.
+End‑to‑end dbt project for an ecommerce dataset, with “messy” raw data to show **data cleaning, modeling, testing, and orchestration with Airflow**.
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```text
 ecommerce_dbt_project/
@@ -96,10 +94,14 @@ fct_orders:
 
 <img width="1622" height="368" alt="Screenshot 2025-11-27 at 08 45 25" src="https://github.com/user-attachments/assets/e2e8e9c5-f6fc-4bdf-826b-ec6655a0f00d" />
 
+Audit_quallity (volume validation):
+
+<img width="661" height="92" alt="Screenshot 2025-11-27 at 09 11 47" src="https://github.com/user-attachments/assets/baeb1db1-7aca-49d2-ba30-606cb1ab5279" />
 
 
+### Reminder 
 
-###  Load the Raw Data into PostgreSQL
+##  Load the Raw Data into PostgreSQL
 
 
 
@@ -127,7 +129,7 @@ Then from `psql`:
 \COPY raw.raw_payments     FROM 'DATA/raw_payments.csv'     WITH (FORMAT csv, HEADER true);
 ```
 
-###  Configure dbt Profile
+##  Configure dbt Profile
 
 In `~/.dbt/profiles.yml`:
 
@@ -147,7 +149,7 @@ ecommerce_dbt_project:
       keepalives_idle: 0
 ```
 
-### Install Dependencies & Validate
+## Install Dependencies & Validate
 
 ```bash
 cd /Users/corentinjegu/Documents/DEV/DBT_expert/ecommerce_dbt_project
@@ -157,7 +159,7 @@ dbt debug         # check connection and profile
 dbt parse         # validate project structure
 ```
 
-###  Run the Pipeline Locally
+##  Run the Pipeline Locally
 
 ```bash
 dbt run           # build all models
@@ -185,31 +187,20 @@ Analytics (dashboards, reports, ad‑hoc analysis)
 
 ---
 
-## 🎯 DBT Layers in This Project
+## DBT Layers in This Project
 
 ###  Staging Layer (Cleaning & Typing)
 
-Each raw table has a staging model:
-
-| Raw table        | Staging model      | Purpose                              |
-|------------------|--------------------|--------------------------------------|
-| `raw_customers`  | `stg_customers`    | Deduplicate, normalize email, dates |
-| `raw_products`   | `stg_products`     | Cast prices, clean stock quantity   |
-| `raw_orders`     | `stg_orders`       | Normalize order status & dates      |
-| `raw_order_items`| `stg_order_items`  | Basic integrity checks              |
-| `raw_payments`   | `stg_payments`     | Normalize payment methods & status  |
-
-**Typical logic in staging:**
+**Typical SQL command:**
 - `ROW_NUMBER()` to deduplicate customers  
 - `CASE WHEN ... THEN ... END` to handle bad formats  
 - `TO_DATE()` and `CAST(.. AS NUMERIC)` for types  
 - `LOWER(email)` to standardize  
 
-Staging is where we accept “dirty” raw data and output **consistent, typed, row‑level data**.
 
 ---
 
-### 2️⃣ Intermediate Layer (Enrichment & 3NF)
+### Intermediate Layer (Enrichment & 3NF)
 
 Goals:
 - Decouple marts from staging (marts never depend directly on `stg_*`)  
@@ -235,19 +226,11 @@ Intermediate models are the **business-ready relational layer** used by marts.
 
 ---
 
-### 3️⃣ Marts Layer (Analytics / Star Schema)
+###  Marts Layer (Analytics / Star Schema)
 
 #### Fact Table: `fct_orders`
 
 Grain: **one row per order**.
-
-Columns (non‑exhaustive):
-- `order_key` (surrogate key, via dbt_utils or manual hash)  
-- `order_id`, `customer_id`, `order_date`  
-- `total_amount` (from orders)  
-- `total_paid`, `payment_count` (from payments)  
-- `payment_difference` (total_paid − total_amount)  
-- `order_status`, `order_category` (e.g. underpaid / overpaid / balanced)  
 
 Tests (see `models/marts/schema.yml`):
 - `unique` + `not_null` on `order_id`  
@@ -258,14 +241,6 @@ Tests (see `models/marts/schema.yml`):
 
 Grain: **one row per customer**.
 
-Columns (non‑exhaustive):
-- `customer_id`, `first_name`, `last_name`, `email`, `signup_date`  
-- `total_orders`, `completed_orders`, `cancelled_orders`  
-- `total_revenue` / `customer_lifetime_value`  
-- `avg_order_value` (rounded to 2 decimals)  
-- `days_since_last_order` (via `days_since` macro or direct date diff)  
-- `customer_segment` (e.g. VIP / Loyal / New / Churn‑risk)  
-
 Tests:
 - `customer_id` `unique` + `not_null`  
 - `total_orders` ≥ 0, `total_revenue` ≥ 0  
@@ -274,21 +249,11 @@ Tests:
 
 Purpose: **volume anomaly detection across layers**.
 
-Outputs one row per monitored table, with:
-- `table_name`  
-- `expected_min`, `expected_max` (row count thresholds)  
-- `actual_count`  
-- `quality_status` ∈ {`OK`, `ALERT_LOW`, `ALERT_HIGH`}  
-
-Used together with the custom test `assert_volume_anomalies.sql` to fail the build if critical volume issues are detected.
-
 ---
 
-## ✅ Tests & Data Quality
+## Tests & Data Quality
 
 ### Schema Tests (YAML)
-
-Defined in `models/staging/schema.yml` and `models/marts/schema.yml`:
 
 ```yaml
 models:
@@ -336,13 +301,8 @@ FROM {{ ref('audit_data_quality') }}
 WHERE quality_status IN ('ALERT_LOW', 'ALERT_HIGH');
 ```
 
-If this query returns rows, the test fails, surfacing volume anomalies.
 
 ### Data Contracts
-
-`fct_orders` and `dim_customers` have **enforced contracts** (via `config.contract.enforced: true` in `models/marts/schema.yml`), meaning:
-- dbt checks column presence & types at parse time  
-- If the database schema drifts from the contract, builds fail early  
 
 ---
 
@@ -445,19 +405,7 @@ dbt docs serve
 # Open http://localhost:8000
 ```
 
-You’ll get:
-- A **lineage graph** from raw → staging → intermediate → marts  
-- Model and column descriptions (from `schema.yml`)  
-- Tests attached to each column  
-- Direct links to compiled SQL  
-
-This is perfect to screen‑share in an interview.
-
----
-
-## 🎯 How to Present This Project in an Interview
-
-Short, punchy summary you can use:
+DEMO PRESENTATION
 
 > “I built a complete ecommerce analytics pipeline with dbt and Airflow:
 > - 5 raw tables with intentional data quality issues  
