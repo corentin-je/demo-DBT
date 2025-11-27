@@ -50,13 +50,55 @@ ecommerce_dbt_project/
         └── ecommerce_pipeline.py
 ```
 
-> Note: `profiles.yml` is **not** inside this project; it lives in `~/.dbt/profiles.yml` as usual.
 
----
+## Views and tables after injestion / transformation / serving :
 
-## 🚀 Quick Start
+### Staging layer :
 
-### 1️⃣ Load the Raw Data into PostgreSQL
+stg_product :
+
+<img width="654" height="307" alt="Screenshot 2025-11-27 at 08 51 58" src="https://github.com/user-attachments/assets/4155df2b-9aec-4887-af4b-8d161e7c5d4c" />
+
+stg_payments :
+
+<img width="555" height="371" alt="Screenshot 2025-11-27 at 08 51 36" src="https://github.com/user-attachments/assets/3ccbdc0c-8808-4c68-86e6-5725e76cd169" />
+
+stg_orders :
+
+<img width="3008" height="1692" alt="Screenshot 2025-11-27 at 08 51 30 (2)" src="https://github.com/user-attachments/assets/065f9c31-ecfb-46ea-bf5f-31c159e09819" />
+
+stg_order_items :
+
+<img width="1800" height="1169" alt="Screenshot 2025-11-27 at 08 51 30" src="https://github.com/user-attachments/assets/ea920d2a-9d8f-4cdc-a519-617783599140" />
+
+stg_cutomers :
+
+<img width="487" height="363" alt="Screenshot 2025-11-27 at 08 51 13" src="https://github.com/user-attachments/assets/f068a16b-e861-406e-bf44-d96229256c1e" />
+
+### intermediate layer:
+
+int_orders_enriched:
+
+<img width="1085" height="276" alt="Screenshot 2025-11-27 at 08 47 56" src="https://github.com/user-attachments/assets/665fa8d9-6297-4af0-9c1d-398d2e0c1060" />
+
+int_customers_lifetime:
+
+<img width="1490" height="304" alt="Screenshot 2025-11-27 at 08 46 19" src="https://github.com/user-attachments/assets/974da55f-c783-4e37-87c7-1c8c86bebb85" />
+
+### mart layer :
+
+dim_customer:
+
+<img width="1490" height="304" alt="Screenshot 2025-11-27 at 08 46 19" src="https://github.com/user-attachments/assets/dd7f9e34-3711-4711-b3c3-6744a8613bc7" />
+
+fct_orders:
+
+<img width="1622" height="368" alt="Screenshot 2025-11-27 at 08 45 25" src="https://github.com/user-attachments/assets/e2e8e9c5-f6fc-4bdf-826b-ec6655a0f00d" />
+
+
+
+
+###  Load the Raw Data into PostgreSQL
 
 Assuming you already have **PostgreSQL** running and a database (e.g. `ecommerce_db`), create a `raw` schema and load the CSV files from `DATA/`:
 
@@ -424,20 +466,4 @@ Short, punchy summary you can use:
 > - Airflow DAG that orchestrates `dbt run`, `dbt test`, and `dbt docs` daily  
 > - All code versioned and ready to demo on GitHub / locally.”
 
----
 
-## 🎓 Learning Outcomes
-
-By working through this project you practice:
-
-- ✅ Full **dbt architecture** (staging / intermediate / marts)  
-- ✅ **Data quality**: tests, contracts, and an audit model  
-- ✅ Handling **dirty real‑world data** in staging  
-- ✅ Designing **reusable** models and intermediate layers  
-- ✅ Basic **governance**: metadata, lineage, documentation  
-- ✅ **Orchestration** with Airflow (local, but production‑inspired)  
-- ✅ Building a **portfolio‑ready project** you can defend in an interview  
-
----
-
-**Good luck, and feel free to extend this project (e.g. snapshots, more marts, more tests) as you grow. 🚀**
