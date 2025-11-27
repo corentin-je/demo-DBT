@@ -73,7 +73,8 @@ stg_order_items:
 
 stg_cutomers:
 
-<img width="487" height="363" alt="Screenshot 2025-11-27 at 08 51 13" src="https://github.com/user-attachments/assets/f068a16b-e861-406e-bf44-d96229256c1e" />
+<img width="556" height="305" alt="Screenshot 2025-11-27 at 08 50 10" src="https://github.com/user-attachments/assets/89ed6997-62ac-448a-b7f6-08e64b035532" />
+
 
 ### intermediate layer:
 
