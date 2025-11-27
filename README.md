@@ -53,25 +53,25 @@ ecommerce_dbt_project/
 
 ## Views and tables after injestion / transformation / serving :
 
-### Staging layer :
+### Staging layer:
 
-stg_product :
+stg_product:
 
 <img width="654" height="307" alt="Screenshot 2025-11-27 at 08 51 58" src="https://github.com/user-attachments/assets/4155df2b-9aec-4887-af4b-8d161e7c5d4c" />
 
-stg_payments :
+stg_payments:
 
 <img width="555" height="371" alt="Screenshot 2025-11-27 at 08 51 36" src="https://github.com/user-attachments/assets/3ccbdc0c-8808-4c68-86e6-5725e76cd169" />
 
-stg_orders :
+stg_orders:
 
-<img width="3008" height="1692" alt="Screenshot 2025-11-27 at 08 51 30 (2)" src="https://github.com/user-attachments/assets/065f9c31-ecfb-46ea-bf5f-31c159e09819" />
+<img width="487" height="363" alt="Screenshot 2025-11-27 at 08 51 13" src="https://github.com/user-attachments/assets/29545d09-4293-490b-815a-be62b152dd65" />
 
-stg_order_items :
+stg_order_items:
 
-<img width="1800" height="1169" alt="Screenshot 2025-11-27 at 08 51 30" src="https://github.com/user-attachments/assets/ea920d2a-9d8f-4cdc-a519-617783599140" />
+<img width="554" height="620" alt="Screenshot 2025-11-27 at 08 50 48" src="https://github.com/user-attachments/assets/21a1a734-8c68-41b7-b703-0bf51b8598e2" />
 
-stg_cutomers :
+stg_cutomers:
 
 <img width="487" height="363" alt="Screenshot 2025-11-27 at 08 51 13" src="https://github.com/user-attachments/assets/f068a16b-e861-406e-bf44-d96229256c1e" />
 
@@ -85,7 +85,7 @@ int_customers_lifetime:
 
 <img width="1490" height="304" alt="Screenshot 2025-11-27 at 08 46 19" src="https://github.com/user-attachments/assets/974da55f-c783-4e37-87c7-1c8c86bebb85" />
 
-### mart layer :
+### mart layer:
 
 dim_customer:
 
