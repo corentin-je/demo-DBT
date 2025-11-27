@@ -101,7 +101,7 @@ fct_orders:
 
 ###  Load the Raw Data into PostgreSQL
 
-Assuming you already have **PostgreSQL** running and a database (e.g. `ecommerce_db`), create a `raw` schema and load the CSV files from `DATA/`:
+
 
 ```sql
 CREATE SCHEMA IF NOT EXISTS raw;
@@ -127,7 +127,7 @@ Then from `psql`:
 \COPY raw.raw_payments     FROM 'DATA/raw_payments.csv'     WITH (FORMAT csv, HEADER true);
 ```
 
-### 2️⃣ Configure dbt Profile
+###  Configure dbt Profile
 
 In `~/.dbt/profiles.yml`:
 
@@ -147,7 +147,7 @@ ecommerce_dbt_project:
       keepalives_idle: 0
 ```
 
-### 3️⃣ Install Dependencies & Validate
+### Install Dependencies & Validate
 
 ```bash
 cd /Users/corentinjegu/Documents/DEV/DBT_expert/ecommerce_dbt_project
@@ -157,7 +157,7 @@ dbt debug         # check connection and profile
 dbt parse         # validate project structure
 ```
 
-### 4️⃣ Run the Pipeline Locally
+###  Run the Pipeline Locally
 
 ```bash
 dbt run           # build all models
@@ -169,7 +169,7 @@ dbt docs serve    # open http://localhost:8000
 
 ---
 
-## 📊 Data Flow (High-Level)
+## Data Flow (High-Level)
 
 ```text
 Raw Data (PostgreSQL, schema: raw)
@@ -187,7 +187,7 @@ Analytics (dashboards, reports, ad‑hoc analysis)
 
 ## 🎯 DBT Layers in This Project
 
-### 1️⃣ Staging Layer (Cleaning & Typing)
+###  Staging Layer (Cleaning & Typing)
 
 Each raw table has a staging model:
 
